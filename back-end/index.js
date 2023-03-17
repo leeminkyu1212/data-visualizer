@@ -35,26 +35,16 @@ app.get("/data", async (req, res) => {
 });
 
 app.post("/data", async (req, res) => {
+  const { startDate, endDate, timeUnit, device, gender, keywordGroups } =
+    req.body;
   try {
     const request_body = {
-      startDate: "2022-06-01",
-      endDate: "2022-08-01",
-      // date, week, month 세 가지 제공
-      timeUnit: "month",
-      keywordGroups: [
-        {
-          groupName: "코로나",
-          keywords: ["코로나", "covid", "백신", "거리두기"],
-        },
-        {
-          groupName: "금리",
-          keywords: ["금리", "빅스텝", "파월"],
-        },
-        {
-          groupName: "누리호",
-          keywords: ["누리호", "항우연"],
-        },
-      ],
+      startDate: startDate,
+      endDate: endDate,
+      timeUnit: timeUnit,
+      device: device === "all" ? "" : device,
+      gender: gender === "all" ? "" : gender,
+      keywordGroups: keywordGroups,
     };
     const url = "https://openapi.naver.com/v1/datalab/search";
     const headers = {
